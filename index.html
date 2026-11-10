@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6 Ocak 2024'ten Bu Yana ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f8d7da; /* Toz pembe ana tema */
+            background-image: radial-gradient(circle at center, #fceef0 0%, #f4c2c2 100%);
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            color: #7a3e48;
+        }
+
+        /* Arka plandaki uçuşan pembe kalpler */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .bg-heart {
+            position: absolute;
+            color: #ff85a2;
+            opacity: 0.45;
+            animation: floatHearts linear infinite;
+            user-select: none;
+        }
+
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(105vh) scale(0.8) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.5;
+            }
+            85% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-15vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Ana Kart Tasarımı */
+        .card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 182, 193, 0.7);
+            border-radius: 28px;
+            padding: 40px 28px;
+            width: 92%;
+            max-width: 520px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(212, 120, 140, 0.25);
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #d6456b;
+            margin-bottom: 24px;
+            text-shadow: 0 2px 4px rgba(214, 69, 107, 0.12);
+        }
+
+        /* Sayaç Kutuları */
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .time-box {
+            background: #fff0f3;
+            border: 1.5px solid #ffb3c6;
+            border-radius: 18px;
+            padding: 14px 6px;
+            box-shadow: 0 4px 10px rgba(255, 143, 163, 0.15);
+        }
+
+        .time-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #c9184a;
+            display: block;
+        }
+
+        .time-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #a44a5f;
+            margin-top: 4px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Özledim Butonu Bölümü */
+        .miss-section {
+            margin-top: 10px;
+        }
+
+        .miss-label {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #8c3b4d;
+            margin-bottom: 14px;
+        }
+
+        .pink-btn {
+            background: linear-gradient(135deg, #ff758f 0%, #ff4d6d 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 34px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pink-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(255, 77, 109, 0.55);
+            background: linear-gradient(135deg, #ff5c7c 0%, #ff3357 100%);
+        }
+
+        .pink-btn:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        .status-msg {
+            margin-top: 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #c9184a;
+            min-height: 24px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .status-msg.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 420px) {
+            .title { font-size: 2.1rem; }
+            .time-value { font-size: 1.45rem; }
+            .pink-btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Arka Plan Kalpler Konteyneri -->
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <!-- Ana İçerik Kartı -->
+    <div class="card">
+        <h1 class="title">6 Ocak 2024'ten bu yana..</h1>
+
+        <div class="timer-grid">
+            <div class="time-box">
+                <span class="time-value" id="days">0</span>
+                <span class="time-label">Gün</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="hours">00</span>
+                <span class="time-label">Saat</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="minutes">00</span>
+                <span class="time-label">Dakika</span>
+            </div>
+            <div class="time-box">
+                <span class="time-value" id="seconds">00</span>
+                <span class="time-label">Saniye</span>
+            </div>
+        </div>
+
+        <div class="miss-section">
+            <p class="miss-label">Beni özledin mi? 💕</p>
+            <button class="pink-btn" id="missBtn">
+                <span>Ne zaman özlersen bas</span>
+                <span>💗</span>
+            </button>
+            <p class="status-msg" id="statusMsg"></p>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. AYARLAR (KENDİ BİLGİLERİNİ GİR)
+        // ==========================================
+        // Başlangıç Tarihi: 6 Ocak 2024 Saat 00:00:00
+        const startDate = new Date(2024, 0, 6, 0, 0, 0); 
+
+        // WhatsApp ile mesaj gelmesi için numaranı 905XXXXXXXXX formatında yaz:
+        const TELEFON_NUMARAN = "905399444787"; 
+
+        // İSTEĞE BAĞLI: WhatsApp açılmadan arka planda direkt telefonuna/Discord'una anlık bildirim 
+        // düşmesini istersen buraya Discord Webhook veya Telegram/Formspree URL'si yapıştırabilirsin:
+        const WEBHOOK_URL = ""; 
+
+        const OzelMesaj = "SENİ ÇOK ÖZLEDİM SEVGİLİMMM.. 🥹😍🥰💗";
+
+        // ==========================================
+        // 2. CANLI ZAMAN SAYACI
+        // ==========================================
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+            document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+            document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+        }
+
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // ==========================================
+        // 3. ARKA PLAN PEMBE KALPLER ÜRETİCİ
+        // ==========================================
+        const heartsBg = document.getElementById("heartsBg");
+        const heartIcons = ["❤", "💗", "💖", "💕", "🌸"];
+
+        function createBackgroundHearts() {
+            const heartCount = 38; // Ekranda aynı anda uçuşan kalp sayısı
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement("div");
+                heart.classList.add("bg-heart");
+                heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.fontSize = (Math.random() * 18 + 14) + "px";
+                heart.style.animationDuration = (Math.random() * 8 + 7) + "s";
+                heart.style.animationDelay = (Math.random() * 10) + "s";
+                heartsBg.appendChild(heart);
+            }
+        }
+        createBackgroundHearts();
+
+        // ==========================================
+        // 4. BUTONA BASILINCA MESAJ GÖNDERME & EFEKT
+        // ==========================================
+        const missBtn = document.getElementById("missBtn");
+        const statusMsg = document.getElementById("statusMsg");
+
+        function burstHearts() {
+            for (let i = 0; i < 20; i++) {
+                const burst = document.createElement("div");
+                burst.classList.add("bg-heart");
+                burst.innerText = "💖";
+                burst.style.left = (40 + Math.random() * 20) + "vw";
+                burst.style.fontSize = (Math.random() * 22 + 18) + "px";
+                burst.style.animationDuration = (Math.random() * 2 + 2) + "s";
+                burst.style.opacity = "0.9";
+                heartsBg.appendChild(burst);
+                setTimeout(() => burst.remove(), 4000);
+            }
+        }
+
+        missBtn.addEventListener("click", async () => {
+            burstHearts();
+            statusMsg.textContent = `Sevgiline haber uçuruluyor... 💌`;
+            statusMsg.classList.add("show");
+
+            // Eğer Webhook girilmişse arka planda sessizce gönderir
+            if (WEBHOOK_URL !== "") {
+                try {
+                    await fetch(WEBHOOK_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ content: OzelMesaj, message: OzelMesaj })
+                    });
+                    statusMsg.textContent = "Mesajın kalbime ulaştı! Seni çok seviyorum ❤️";
+                    return;
+                } catch (err) {
+                    console.error("Webhook hatası:", err);
+                }
+            }
+
+            // WhatsApp üzerinden direkt mesajı hazırla ve gönder
+            setTimeout(() => {
+                const whatsappUrl = `https://wa.me/${TELEFON_NUMARAN}?text=${encodeURIComponent(OzelMesaj)}`;
+                window.open(whatsappUrl, "_blank");
+            }, 600);
+        });
+    </script>
+</body>
+</html>
